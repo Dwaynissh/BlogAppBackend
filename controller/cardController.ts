@@ -9,9 +9,9 @@ export const createCardData = async (
 ): Promise<Response> => {
   try {
     const { title, author, description, image, category, content } = req.body;
-    const { blogID } = req.params;
+    const { userID } = req.params;
 
-    const main = await mainModel.findById(blogID);
+    const main = await mainModel.findById(userID);
 
     if (main) {
       const cardData = await cardModel.create({
@@ -33,7 +33,7 @@ export const createCardData = async (
       });
     } else {
       return res.status(404).json({
-        message: "No Blog Created",
+        message: "No user Created",
         status: 404,
       });
     }
@@ -131,9 +131,9 @@ export const getAllMain = async (
   res: Response
 ): Promise<Response> => {
   try {
-    const { blogID } = req.params;
+    const { userID } = req.params;
 
-    const mainCardData = await mainModel.findById(blogID).populate({
+    const mainCardData = await mainModel.findById(userID).populate({
       path: "allCards",
       options: {
         sort: {

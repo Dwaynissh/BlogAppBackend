@@ -1,18 +1,45 @@
-import { Document, Schema, Types, model } from "mongoose";
-
-export interface iMainProps {
-  blogName: string;
-
-  allCards: Array<{}>;
-  allBookmarks: Array<{}>;
-}
-
-interface iMainData extends Document, iMainProps {}
+import { Schema, Types, model } from "mongoose";
+import { iMainData } from "../utils/interfaces";
 
 const mainModel = new Schema<iMainData>(
   {
-    blogName: {
+    email: {
       type: String,
+      unique: true,
+      required: true,
+    },
+    fullName: {
+      type: String,
+    },
+    initials: {
+      type: String,
+    },
+    gender: {
+      type: String,
+    },
+    profession: {
+      type: String,
+    },
+    bio: {
+      type: String,
+    },
+    password: {
+      type: String,
+    },
+    avatar: {
+      type: String,
+    },
+    token: {
+      type: String,
+    },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+
+    firstLogin: {
+      type: Boolean,
+      default: false,
     },
 
     allCards: [

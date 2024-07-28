@@ -1,12 +1,7 @@
 import { Document, Schema, model } from "mongoose";
+import { iBookmarkData } from "../utils/interfaces";
 
-export interface iProps {
-  bookmark: {}[];
-}
-
-interface iUserData extends Document, iProps {}
-
-const bookmarkModel = new Schema<iUserData>(
+const bookmarkModel = new Schema<iBookmarkData>(
   {
     bookmark: {
       type: [],
@@ -16,4 +11,4 @@ const bookmarkModel = new Schema<iUserData>(
   { timestamps: true }
 );
 
-export default model<iUserData>("bookmarks", bookmarkModel);
+export default model<iBookmarkData>("bookmarks", bookmarkModel);

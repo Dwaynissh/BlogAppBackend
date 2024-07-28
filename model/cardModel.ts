@@ -1,17 +1,5 @@
 import { Document, Schema, Types, model } from "mongoose";
-
-export interface iCardProps extends Document {
-  title: string;
-  author: string;
-  description: string;
-  image: string;
-  likes: Array<string>;
-  category: string;
-  content: string;
-  main: {};
-}
-
-interface iCardData extends Document, iCardProps {}
+import { iCardData } from "../utils/interfaces";
 
 const cardModel = new Schema<iCardData>(
   {
