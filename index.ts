@@ -5,7 +5,8 @@ import { dbConfig } from "./utils/dbConfig";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import mongo from "connect-mongodb-session";
-import dotnev from "dotenv";
+import dotenv from "dotenv";
+dotenv.config();
 
 const port = process.env.PORT!;
 const app: Application = express();
@@ -16,7 +17,7 @@ app.use(cors({ origin: process.env.APP_URL_LOCAL!, credentials: true }));
 app.use(cookieParser());
 
 var store = new mongoSession({
-  uri: "mongodb://localhost:27017/bookmarkDB",
+  uri: process.env.MONGO_DB_URL_LOCAL!,
   collection: "session",
 });
 

@@ -3,6 +3,8 @@ import mainModel from "../model/mainModel";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const createBlogUser = async (
   req: Request,
@@ -153,9 +155,13 @@ export const signInBlogUser = async (
       const passwordCheck = await bcrypt.compare(password, finduser.password);
       if (passwordCheck) {
         if (finduser.verify === true && finduser?.token) {
-          const token = jwt.sign({ id: finduser._id }, "blogSecret", {
-            expiresIn: "2d",
-          });
+          const token = jwt.sign(
+            { id: finduser._id },
+            process.env.JWT_SECRET!,
+            {
+              expiresIn: "2d",
+            }
+          );
 
           return res.status(200).json({
             message: "Successfully signed-in user, Welcome back 😊",
