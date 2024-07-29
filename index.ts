@@ -11,7 +11,7 @@ const app: Application = express();
 const mongoSession = mongo(session);
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(cookieParser());
 
 var store = new mongoSession({
@@ -21,7 +21,7 @@ var store = new mongoSession({
 
 app.use(
   session({
-    secret: "just-work",
+    secret: "blog-app",
     cookie: {
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 48,

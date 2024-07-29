@@ -46,17 +46,25 @@ export const createProfile = async (
       fullName.charAt(0) + fullName.charAt(fullName.indexOf(" ") + 1);
 
     if (user && user.verify === true) {
-      user.fullName = fullName;
-      user.gender = gender;
-      user.bio = bio;
-      user.initials = init;
-      user.profession = profession;
+      if (fullName && gender && bio && profession) {
+        user.fullName = fullName;
+        user.gender = gender;
+        user.bio = bio;
+        user.initials = init;
+        user.profession = profession;
+        user.firstLogin = true;
 
-      await user.save();
-      return res.status(201).json({
-        message: "Successfully Updated User Profile",
-        status: 201,
-      });
+        await user.save();
+        return res.status(201).json({
+          message: "Successfully Updated User Profile",
+          status: 201,
+        });
+      } else {
+        return res.status(404).json({
+          message: "Please Enter All Profile Details",
+          status: 404,
+        });
+      }
     } else {
       return res.status(404).json({
         message: "No User Found Or Verified",
@@ -113,7 +121,6 @@ export const verifyBlogUser = async (req: Request, res: Response) => {
         {
           verifiedToken: "",
           verify: true,
-          firstLogin: true,
         },
         { new: true }
       );
@@ -153,7 +160,7 @@ export const signInBlogUser = async (
           return res.status(200).json({
             message: "Successfully signed-in user, Welcome back 😊",
             status: 200,
-            data: token && finduser,
+            data: token,
           });
         } else {
           return res.status(404).json({
