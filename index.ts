@@ -5,13 +5,14 @@ import { dbConfig } from "./utils/dbConfig";
 import cookieParser from "cookie-parser";
 import session from "express-session";
 import mongo from "connect-mongodb-session";
+import dotnev from "dotenv";
 
-const port: number = 4007;
+const port = process.env.PORT!;
 const app: Application = express();
 const mongoSession = mongo(session);
 
 app.use(express.json());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: process.env.APP_URL_LOCAL!, credentials: true }));
 app.use(cookieParser());
 
 var store = new mongoSession({
@@ -21,7 +22,7 @@ var store = new mongoSession({
 
 app.use(
   session({
-    secret: "blog-app",
+    secret: process.env.SESSION_SECRET!,
     cookie: {
       sameSite: "lax",
       maxAge: 1000 * 60 * 60 * 48,
@@ -32,7 +33,7 @@ app.use(
 );
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Origin", process.env.APP_URL_LOCAL!);
   res.header("Access-Control-Allow-Credentials", "true");
   res.header("Access-Control-Allow-Methods", "GET,PATCH,POST,DELETE");
   res.header("Access-Control-Allow-Headers", "Content-Type");

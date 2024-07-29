@@ -4,12 +4,10 @@ import path from "path";
 import ejs from "ejs";
 
 // Dwaynissh@gmail.com
-const GOOGLE_ID =
-  "265727848227-v9gm76419od83e09lcgidq7j2f2ef8jd.apps.googleusercontent.com";
-const GOOGLE_SECRET = "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";
-const GOOGLE_REDIRECT_URL = "https://developers.google.com/oauthplayground";
-const GOOGLE_REFRESH =
-  "1//04jQ0P5pu_dILCgYIARAAGAQSNwF-L9IrJjH8M6DiPLyr2_DMKpOdx2HQzJEG5uo5yyl0WGTiqZ8NJfSTzVI1EmKWzPFcSo7mBtk";
+const GOOGLE_ID = process.env.GOOGLE_ID;
+const GOOGLE_SECRET = process.env.GOOGLE_SECRET;
+const GOOGLE_REDIRECT_URL = process.env.GOOGLE_REDIRECT_URL;
+const GOOGLE_REFRESH = process.env.GOOGLE_REFRESH;
 
 const oAuth = new google.auth.OAuth2(
   GOOGLE_ID,

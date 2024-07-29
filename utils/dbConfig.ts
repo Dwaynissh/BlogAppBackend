@@ -1,11 +1,13 @@
 import { log } from "console";
 import { connect } from "mongoose";
-
-const URL: string = "mongodb://localhost:27017/bookmarkDB";
+import dotnev from "dotenv";
+dotnev.config();
 
 export const dbConfig = async () => {
   try {
-    return await connect(URL).then(() => log("DataBase connected 🔥🔥"));
+    return await connect(process.env.MONGO_DB_URL_LOCAL!).then(() =>
+      log("DataBase connected 🔥🔥")
+    );
   } catch (err: any) {
     log(err);
     return err;
