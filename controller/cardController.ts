@@ -334,14 +334,28 @@ export const deleteCard = async (
   res: Response
 ): Promise<Response> => {
   try {
+    const { userID } = req.params;
     const { cardID } = req.params;
-    const findCard = await cardModel.findByIdAndDelete(cardID);
 
-    return res.status(404).json({
-      message: "Successfully deleted card",
-      status: 200,
-      data: findCard,
-    });
+    const user: any = await mainModel.findById(userID);
+
+    if (user) {
+      const findCard = await cardModel.findByIdAndDelete(cardID);
+
+      user.allCards.pull(new Types.ObjectId(cardID));
+      user.save();
+
+      return res.status(404).json({
+        message: "Successfully deleted card",
+        status: 200,
+        data: findCard,
+      });
+    } else {
+      return res.status(404).json({
+        message: "Error Deleting Card, No User Found.",
+        status: 404,
+      });
+    }
   } catch (error) {
     return res.status(404).json({
       message: "Error deleting card",

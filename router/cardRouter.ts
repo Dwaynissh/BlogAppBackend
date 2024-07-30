@@ -30,6 +30,6 @@ router.route("/religious").get(getReligious);
 router.route("/edit-card/:cardID").patch(editCardData);
 router.route("/like-card/:cardID").patch(addLikesToCard);
 
-router.route("/delete-card/:cardID").delete(deleteCard);
+router.route("/delete-card/:userID/:cardID").delete(deleteCard);
 
 export default router;
