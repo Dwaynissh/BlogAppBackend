@@ -4,6 +4,7 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { initial } from "lodash";
 dotenv.config();
 
 export const createBlogUser = async (
@@ -59,6 +60,14 @@ export const createProfile = async (
         await user.save();
         return res.status(201).json({
           message: "Successfully Updated User Profile",
+          data: {
+            user: user.fullName,
+            gender: user.gender,
+            bio: user.bio,
+            profession: user.profession,
+            initials: user.initials,
+            firstlogin: user.firstLogin,
+          },
           status: 201,
         });
       } else {
@@ -166,7 +175,14 @@ export const signInBlogUser = async (
           return res.status(200).json({
             message: "Successfully signed-in user, Welcome back 😊",
             status: 200,
-            data: token,
+            data: token && {
+              user: finduser.fullName,
+              gender: finduser.gender,
+              bio: finduser.bio,
+              profession: finduser.profession,
+              initials: finduser.initials,
+              firstlogin: finduser.firstLogin,
+            },
           });
         } else {
           return res.status(404).json({
