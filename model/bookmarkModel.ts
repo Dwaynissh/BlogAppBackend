@@ -1,4 +1,4 @@
-import { Document, Schema, model } from "mongoose";
+import { Schema, model } from "mongoose";
 import { iBookmarkData } from "../utils/interfaces";
 
 const bookmarkModel = new Schema<iBookmarkData>(

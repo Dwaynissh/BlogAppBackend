@@ -1,3 +1,5 @@
+// For Main
+
 export interface iMainProps {
   email: string;
   fullName: string;

@@ -1,4 +1,4 @@
-import { Document, Schema, Types, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 import { iCardData } from "../utils/interfaces";
 
 const cardModel = new Schema<iCardData>(

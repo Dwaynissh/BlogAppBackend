@@ -152,6 +152,8 @@ export const verifyBlogUser = async (req: Request, res: Response) => {
   }
 };
 
+// Updated sign in
+
 export const signInBlogUser = async (
   req: Request,
   res: Response
@@ -175,12 +177,8 @@ export const signInBlogUser = async (
           return res.status(200).json({
             message: "Successfully signed-in user, Welcome back 😊",
             status: 200,
-            data: token && {
-              user: finduser.fullName,
-              gender: finduser.gender,
-              bio: finduser.bio,
-              profession: finduser.profession,
-              initials: finduser.initials,
+            data: token,
+            login: {
               firstlogin: finduser.firstLogin,
             },
           });
@@ -269,6 +267,7 @@ export const readUserCookie = async (req: Request, res: Response) => {
   }
 };
 
+// Added logout user endpoints
 export const logOutUser = async (req: any, res: Response) => {
   try {
     req.session.destroy();
